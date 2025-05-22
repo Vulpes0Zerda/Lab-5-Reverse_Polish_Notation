@@ -12,12 +12,12 @@ public class CalcStack {
         System.out.println(stack);
     }
 
-    public void push(String value){
+    public void push(String var){
 
         ListElement s = new ListElement();
-        s.next = head; //Kopf wird vorne hinzugefügt
-        s.value = value; //Wert wird vorne hinzugefügt
-        head = s;      //head wird mit dem Wert von s aktualisiert
+        s.next = head; //head is added at the front
+        s.value = var; //value is added at the front
+        head = s;      //head is updated with the value of s
     }
 
     public String pop(){
@@ -25,7 +25,9 @@ public class CalcStack {
         if(head == null) {
             return null;
         }
+        //val saves the value so that you know which element was deleted
         String val = head.value;
+
         head = head.next;
         return val;
     }
@@ -33,6 +35,7 @@ public class CalcStack {
         public void clear(){
 
         head = null;
+
         }
 
 
