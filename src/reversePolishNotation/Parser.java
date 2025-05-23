@@ -1,4 +1,4 @@
-package reversePolishNotation;
+package src.reversePolishNotation;
 /*
  If the string contains a number, then a varibale should continue and check whether the next digit is a number again.
  If yes, then the varibale should continue again.
@@ -7,10 +7,12 @@ package reversePolishNotation;
  */
 import java.util.Scanner;
 import java.util.ArrayList;
+
 public class Parser {
 
   private Scanner scanner;
   private ArrayList<String> split;
+  private CalcStack stack;
 
   private String paString;
   private String currentString = "";
@@ -20,32 +22,46 @@ public class Parser {
     split = new ArrayList<String>();
   }
 
-  public static void main(String[] args) {
-    Parser p = new Parser();
+    public static void main(String[] args) {
+      Parser p = new Parser();
 
-      p.splitTerm();
-      //p.getInput();
-    }
+        p.printWelcome();
+        p.splitTerm();
+        p.createStack();
+        p.getStack();
 
+      }
 
-  public void splitTerm(){
-      boolean validInput = false;
-
+  private void printWelcome(){
       System.out.println("Please enter a term to split it into chars:");
       System.out.println("Ignore whitspaces!");
       System.out.println("Example: 32*2");
+  }
+
+  public void splitTerm(){
+      boolean validInput = false;
       
-      char x;
 
       while(!validInput){
         try {
           paString = scanner.nextLine();
           validInput = !validInput;
-        
-            //Iterate through String that was entered
+          checkString();
+
+        } catch (NumberFormatException e) {
+          System.err.println("Your input is not valid.");
+          System.err.println(e.getStackTrace());
+          System.out.println();
+        }
+      }
+    }
+
+    public void checkString(){
+      char x;
+
+       //Iterate through String that was entered
             for(int i = 0; i < paString.length(); i++){
              x = paString.charAt(i);
-             
              
             //If the input is a number, save this value in currentString
             //A number with a minus sign is added to the number
@@ -70,19 +86,20 @@ public class Parser {
           split.add(currentString);
           }
 
-          System.out.println(split);
-
-        } catch (NumberFormatException e) {
-          System.err.println("Your input is not valid.");
-          System.err.println(e.getStackTrace());
-          System.out.println();
-        }
-      }
     }
 
-    /*public String getInput(){
-    return paString;
-    }*/
+    public void createStack(){
+      stack = new CalcStack();
+
+      for (String part : split) {
+      stack.push(part);
+      }
+      
+    }
+
+    public CalcStack getStack(){
+      return stack;
+    }
   }
     
 
