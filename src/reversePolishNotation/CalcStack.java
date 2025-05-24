@@ -1,31 +1,51 @@
-package src.reversePolishNotation;
-public class CalcStack {
+package reversePolishNotation;
+public class CalcStack <Type> {
 
-    private ListElement head;
+    private ListElement<Type> top;
+    private ListElement<Type> bottom;
+    private int size;
 
-    public void push(String var){
+    public void push(Type value){
 
-        ListElement s = new ListElement();
-        s.next = head;          //head is added at the front
-        s.value = var; //value is added at the front
-        head = s;      //head is updated with the value of s
+        ListElement<Type> e = new ListElement<>();
+        if(top == null){
+            bottom = e;
+        }
+        e.next = top; //last element is linked to the new element
+        e.value = value; //value is added to the new element
+        this.top = e; //top is updated with the new list element
+        this.size++;
     }
 
-    public String pop(){
+    public Type pop(){
 
-        if(head == null) {
+        if(top == null) {
             return null;
         }
         //val saves the value so that you know which element was deleted
-        String val = head.value;
-
-        head = head.next;
+        Type val = top.value;
+        
+        if(top == bottom){
+            bottom = null;
+        }
+        this.size--;
+        top = top.next;
         return val;
     }
 
-        public void clear(){
+    public Type firstValue(){
+        return top.value;
+    }
 
-        head = null;
+    public Type lastValue(){
+        return bottom.value;
+    }
 
-        }
+    public ListElement<Type> getFirst(){
+        return top;
+    }
+
+    public void clear(){
+        top = null;
+    }
 }
