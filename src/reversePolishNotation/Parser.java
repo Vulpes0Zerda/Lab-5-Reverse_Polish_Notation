@@ -80,7 +80,7 @@ public class Parser {
                 }
             }
             
-            else if(x == '(' || x == ')' || x == '+' || x == '*' || x == '/') {
+            else if(x == '(' || x == ')' || x == '+' || x == '*' || x == '/' || x == '^') {
                 if (!currentString.isEmpty()) split.add(currentString);
                 currentString = "";
                 split.add(String.valueOf(x));
