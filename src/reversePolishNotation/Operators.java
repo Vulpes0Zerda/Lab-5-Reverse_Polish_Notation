@@ -15,7 +15,7 @@ public enum Operators {
     this.weight = weight;
   }
 
-  public Integer getWeight(String operator) {
+  public static Integer getWeight(String operator) {
     for (Operators op : values()) {
       if(op.operator.equals(operator)){
         return op.weight;
