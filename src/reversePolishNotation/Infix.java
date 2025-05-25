@@ -2,7 +2,6 @@ package src.reversePolishNotation;
 
 public class Infix {
   private CalcStack<String> infixStack;
-  private Operators operators;
   private CalcStack<CalcStack<String>> operatorStacks;
   private CalcStack<String> postfixStack;
 
@@ -19,82 +18,64 @@ public class Infix {
     }
     try {
         double d = Double.parseDouble(strNum);
-    } catch (NumberFormatException nfe) {
+    } catch (NumberFormatException e) {
         return false;
     }
     return true;
   }
 
 
-  public CalcStack<String> toPostfix(){
-
-    int openParentheses = 0;
-    
-    // uses this as a sub stack to simulate parentheses
+public CalcStack<String> toPostfix() {
     CalcStack<String> operatorStack = new CalcStack<>();
-
-    operatorStacks.push(operatorStack);
-    // inverts the stack to read it from left to right
-    if(infixStack.isLeftToRight()){
-      infixStack.invert();
+    
+    if (infixStack.isLeftToRight()) {
+        infixStack.invert();
     }
 
-    // goes through all the infix stack elements
-    for(int i = 0; i<infixStack.size(); i++){
+    while (infixStack.size() > 0) {
+        String token = infixStack.pop();
 
-      // pops the first element
-      String element = infixStack.pop();
+        if (isNumber(token)) {
+            postfixStack.push(token);
 
-      // checks if element is a number
-      if(Infix.isNumber(element)){
-        postfixStack.push(element);
+        } else if (token.equals("(")) {
+            operatorStack.push(token);
 
-      // checks if element is a opening parentheses
-      }else if (element.equals("(")) {
-        openParentheses++;
-        operatorStack = new CalcStack<>();
-        operatorStacks.push(operatorStack);
+        } else if (token.equals(")")) {
+            while (operatorStack.size() > 0 && !operatorStack.firstValue().equals("(")) {
+                postfixStack.push(operatorStack.pop());
+            }
+            if (operatorStack.size() == 0) {
+                System.err.println("Mismatched parentheses.");
+                System.exit(0);
+            } else {
+                operatorStack.pop(); // discard the "("
+            }
 
-      // checks if element is a closing
-      }else if(element.equals(")")){
-        if(openParentheses>0){
-          openParentheses--;
-          flushStack();
-        }else{
-          System.err.println("Cannot close unopened parentheses. Please check your input and try again.");
-          // if the while loop would run in Start instead of Parser you could throw and error and retry the input
-          System.exit(0);
+        } else { // operator
+            while (
+                operatorStack.size() > 0 &&
+                !operatorStack.firstValue().equals("(") &&
+                Operators.getWeight(operatorStack.firstValue()) >= Operators.getWeight(token)
+            ) {
+                postfixStack.push(operatorStack.pop());
+            }
+            operatorStack.push(token);
         }
-
-      }else{
-        operatorStack.push(element);
-
-        // 
-        if(operatorStack.firstValue() != null){
-
-          if(operators.getWeight(operatorStack.firstValue()) < operators.getWeight(element)){
-
-            operatorStack.push(element);
-
-          }else{
-
-            postfixStack.push(operatorStack.pop());
-            operatorStack.push(element);
-
-          }
-        }else{
-
-          operatorStack.push(element);
-
-        }
-      }
-      flushStack();
     }
 
-    postfixStack.invert();
+    // Drain remaining operators
+    while (operatorStack.size() > 0) {
+        String op = operatorStack.pop();
+        if (op.equals("(") || op.equals(")")) {
+            System.err.println("Mismatched parentheses.");
+            System.exit(0);
+        }
+        postfixStack.push(op);
+    }
+
     return postfixStack;
-
-  }
+}
 
   private void flushStack(){
     if(0<operatorStacks.size()){
