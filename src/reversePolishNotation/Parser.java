@@ -68,22 +68,36 @@ public class Parser {
             for(int i = 0; i < paString.length(); i++){
              x = paString.charAt(i);
              
+             //If the String has Letters in it, this Message will be printed.
              if(Character.isLetter(x)){
               System.out.println("You term has letters in it. Try again without it.");
                 return false;
              }
         
             //If the input is a number, save this value in currentString
-            //A number with a minus sign is added to the number
-             if(Character.isDigit(x) || x == '.'){
+            if(Character.isDigit(x) || x == '.'){
               currentString += x;
-             }
-          
-             
-              //When the input contains a character that is not a number... 
-              else if(!Character.isDigit(x) && currentString.length() > 0 || x == '(' || x == ')' || x == '-' ) {
-                // add currentString if its not empty
+            }
+          //
+            else if (x == '-') {
+                
+                //Handle the minus sign: If it is at the start of the expression or follows 
+                //an operator or opening parenthesis, treat it as a negative sign and append it to the current number. 
+                //Otherwise, treat it as a subtraction operator and add it as a separate element to the split list.
+                if (i == 0 || paString.charAt(i-1) == '(' || paString.charAt(i-1) == '+' ||
+                    paString.charAt(i-1) == '-' || paString.charAt(i-1) == '*' || paString.charAt(i-1) == '/' ) {
+                    currentString += x;
+                } else {
+                    if (!currentString.isEmpty()) 
+                    split.add(currentString);
+                    currentString = "";
+                    split.add("-");
+                }
+            }
+            
+            else if(x == '(' || x == ')' || x == '+' || x == '*' || x == '/') {
                 if (!currentString.isEmpty()) split.add(currentString);
+                currentString = "";
                 split.add(String.valueOf(x));
               }
               
