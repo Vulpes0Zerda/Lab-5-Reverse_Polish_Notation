@@ -107,7 +107,7 @@ public class Parser {
       
     }
 
-    public CalcStack getStack(){
+    public CalcStack<String> getStack(){
       return stack;
     }
   }

@@ -14,14 +14,9 @@ public class Start {
     p.printWelcome();
     p.splitTerm();
     p.createStack();
-    String str = "";
-    p.getStack().invert();
-    while(0<p.getStack().size()){
-      str += "["+p.getStack().pop()+"]";
-    }
-    System.out.println(str);
-    Infix infixStack = new Infix(p.getStack());
+    CalcStack<String> stack = p.getStack();
 
+    Infix infixStack = new Infix(stack);
 
     Postfix postfixStack = new Postfix(infixStack.toPostfix());
     System.out.println(postfixStack.evaluate());
