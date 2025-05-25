@@ -1,4 +1,4 @@
-package src.reversePolishNotation;
+package reversePolishNotation;
 
 public class Postfix {
 
@@ -10,7 +10,6 @@ public class Postfix {
   
   public double evaluate(){
     CalcStack<Double> numberStack = new CalcStack<>();
-    double result = 0;
     if(postfixStack.isLeftToRight()){
       postfixStack.invert();
     }
@@ -22,23 +21,23 @@ public class Postfix {
         double b = numberStack.pop();
         double a = numberStack.pop();
         switch (e) {
-            case "+":
-              numberStack.push(a+b);
-              break;
-            case "-":
-              numberStack.push(a-b);
-              break;
-            case "*":
-              numberStack.push(a*b);
-              break;
-            case "/":
-              numberStack.push(a/b);
-              break;
-            case "^":
-              numberStack.push(Math.pow(a, b));
-              break;
-            default:
-                throw new AssertionError();
+          case "+":
+            numberStack.push(a+b);
+            break;
+          case "-":
+            numberStack.push(a-b);
+            break;
+          case "*":
+            numberStack.push(a*b);
+            break;
+          case "/":
+            numberStack.push(a/b);
+            break;
+          case "^":
+            numberStack.push(Math.pow(a, b));
+            break;
+          default:
+              throw new AssertionError();
         }
       }
     }

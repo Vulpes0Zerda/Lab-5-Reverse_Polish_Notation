@@ -1,4 +1,4 @@
-package src.reversePolishNotation;
+package reversePolishNotation;
 public class CalcStack <Type> {
 
     private ListElement<Type> top;
@@ -25,6 +25,7 @@ public class CalcStack <Type> {
         }
         //val saves the value so that you know which element was deleted
         Type val = top.value;
+        
         
         if(top == bottom){
             bottom = null;

@@ -1,4 +1,4 @@
-package src.reversePolishNotation;
+package reversePolishNotation;
 
 public class Start {
   public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package src.reversePolishNotation;
+package reversePolishNotation;
 
 public enum Operators {
   ADD("+", 11),
