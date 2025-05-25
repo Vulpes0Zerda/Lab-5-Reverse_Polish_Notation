@@ -1,3 +1,7 @@
-reversePolishNotation\ListElement.class
+reversePolishNotation\Operators.class
+reversePolishNotation\Start.class
 reversePolishNotation\CalcStack.class
+reversePolishNotation\Infix.class
+reversePolishNotation\Postfix.class
+reversePolishNotation\ListElement.class
 reversePolishNotation\Parser.class

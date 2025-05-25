@@ -1,4 +1,4 @@
-package src.reversePolishNotation;
+package reversePolishNotation;
 /*
  If the string contains a number, then a varibale should continue and check whether the next digit is a number again.
  If yes, then the varibale should continue again.
@@ -22,22 +22,7 @@ public class Parser {
     split = new ArrayList<String>();
   }
 
-    public static void main(String[] args) {
-      Parser p = new Parser();
-
-        p.printWelcome();
-        p.splitTerm();
-
-    
-    for (String teil : p.split) {
-        System.out.println("["+teil+"]");
-    }
-        p.createStack();
-        p.getStack();
-
-      }
-
-  private void printWelcome(){
+  public void printWelcome(){
       System.out.println("Please enter a term to split it into chars:");
       System.out.println("Ignore whitspaces!");
       System.out.println("Example: 32*2");

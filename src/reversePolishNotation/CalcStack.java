@@ -1,9 +1,10 @@
-package src.reversePolishNotation;
+package reversePolishNotation;
 public class CalcStack <Type> {
 
     private ListElement<Type> top;
     private ListElement<Type> bottom;
-    private int size;
+    private int size = 0;
+    private boolean isLeftToRight = true;
 
     public void push(Type value){
 
@@ -45,7 +46,30 @@ public class CalcStack <Type> {
         return top;
     }
 
-    public void clear(){
-        top = null;
+    public ListElement<Type> getLast(){
+        return bottom;
+    }
+
+    public boolean isLeftToRight(){
+        return this.isLeftToRight;
+    }
+
+    public int size(){
+        return this.size;
+    }
+
+    public void invert(){
+        CalcStack<Type> inverted = new CalcStack<>();
+        while(0<this.size){
+            inverted.push(this.pop());
+        }
+        this.bottom = inverted.getLast();
+        this.top = inverted.getFirst();
+        this.size = inverted.size();
+        this.isLeftToRight = !this.isLeftToRight;
+    }
+
+    public void invertDirection(){
+        isLeftToRight = !isLeftToRight;
     }
 }

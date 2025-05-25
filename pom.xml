@@ -28,7 +28,7 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>reversePolishNotation.ConsoleDialog</mainClass>
+                                    <mainClass>reversePolishNotation.Start</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>

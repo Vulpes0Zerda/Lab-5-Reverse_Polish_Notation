@@ -1,4 +1,4 @@
-package src.reversePolishNotation;
+package reversePolishNotation;
 
 public class ListElement<Type> {
     //Structure of a single Element in a Stack
