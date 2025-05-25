@@ -1,4 +1,4 @@
-package reversePolishNotation;
+package src.reversePolishNotation;
 public class CalcStack <Type> {
 
     private ListElement<Type> top;

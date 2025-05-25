@@ -1,4 +1,4 @@
-package reversePolishNotation;
+package src.reversePolishNotation;
 /*
  If the string contains a number, then a varibale should continue and check whether the next digit is a number again.
  If yes, then the varibale should continue again.

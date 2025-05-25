@@ -1,4 +1,4 @@
-package reversePolishNotation;
+package src.reversePolishNotation;
 
 public class Infix {
   private CalcStack<String> infixStack;
